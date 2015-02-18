@@ -1,0 +1,37 @@
+
+#! /bin/sh
+
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+PANEL_HEIGHT=24
+PANEL_FONT_FAMILY=":pixelsize=10"
+PANEL_ICONS="FontAwesome-9"
+
+bspc config top_padding $PANEL_HEIGHT
+
+# Get network speeds
+network &
+
+#bspc control --subscribe > "$PANEL_FIFO" &
+#xtitle -sf 'T%s' > "$PANEL_FIFO" &
+#clock -sf 'S%a %H:%M' > "$PANEL_FIFO" &
+
+
+#. panel_colors
+ source ~/.colors
+
+# Bar requires an alpha channel so I added a fake one
+COLOR_FOREGROUND=#FF${COLOR3:1}
+COLOR_BACKGROUND=#FF151A21
+
+float_bar | bar-aint-recursive -g 1580x$PANEL_HEIGHT+10+10 -f "$PANEL_FONT_FAMILY","$PANEL_ICONS" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | bash &
+
+wait

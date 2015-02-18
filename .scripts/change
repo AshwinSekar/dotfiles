@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source ~/.colors
+
+pkill bar
+pkill network
+
+if [ -z $1 ]
+then
+  wp change
+else
+  wp change $1
+fi
+
+panel &
+bottombar &
+bspc config focused_border_color $COLOR3

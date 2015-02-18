@@ -1,0 +1,69 @@
+#!/bin/bash
+
+clock() {
+  date +%a\ %I:%M\ %p
+}
+
+batt() {
+  level=$(cat /sys/class/power_supply/BAT1/capacity)
+  status=$(cat /sys/class/power_supply/BAT1/status)
+  if [ "$level" -lt 20 -a "$status" = "Discharging" ]
+  then
+    echo "%{F#FFFF3030}  $COLOR_OTHER $level"
+  elif [ "$status" = "Discharging" ]
+  then
+    echo "$COLOR_FOREGROUND  $COLOR_OTHER $level"
+   else
+    echo "%{F#FF00FF3F}  $COLOR_OTHER $level"
+  fi
+}
+
+vol() {
+  level=`amixer get Master | tail -1 | awk '{print $4}' | tr -d '[]'`
+  mute=`amixer get Master | tail -1 | awk '{print $6}' | tr -d '[]'`
+  if [ $mute == "on" ]
+  then
+    echo " $COLOR_OTHER $level";
+  else
+    echo " $COLOR_OTHER $level";
+  fi
+}
+
+bright() {
+ printf "%.0f" `xbacklight -get`
+}
+
+info() {
+  echo "%{A:urxvt -title 'screenfetch' -e bash -c 'bspc window -t floating;screenfetch;read':}Ashwin Sekar%{A}"
+}
+
+wifi() {
+  waw=`netctl list | grep '*' | cut -b 3-`
+  if [ "$waw" != "" ]
+  then
+    echo "$COLOR_FOREGROUND  $COLOR_OTHER $waw"
+    echo "$COLOR_FOREGROUND $COLOR_OTHER"
+    cat /tmp/downspeed
+    echo "$COLOR_FOREGROUND $COLOR_OTHER"
+    cat /tmp/upspeed
+  fi
+}
+
+# Get our colors
+source ~/.colors
+
+COLOR_FOREGROUND="%{F#FF${COLOR3:1}}"
+COLOR_OTHER="%{F#FF${COLOR5:1}}"
+
+while :; do
+  buf="$COLOR_FOREGROUND   $(info)"
+  buf="$buf %{r}"
+  buf="$buf $(wifi)"
+  buf="$buf $COLOR_FOREGROUND $(batt)"
+  buf="$buf $COLOR_FOREGROUND $(vol)"
+  buf="$buf $COLOR_FOREGROUND  $COLOR_OTHER $(bright)"
+  buf="$buf $COLOR_FOREGROUND  $COLOR_OTHER $(clock)"
+  buf="$buf $COLOR_FOREGROUND %{A:urxvt -e shutdown now:}%{A}  $COLOR_FOREGROUND "
+  	
+  echo $buf
+done

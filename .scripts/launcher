@@ -1,0 +1,4 @@
+#!/bin/bash
+source ~/.colors
+
+dmenu_run -i -h 900 -w 1600 -q -l 1 -o .9 -p "                                                                                                 execute" -nb "#000000" -nf "#bbbbbb" -sb "#000000" -sf $COLOR3

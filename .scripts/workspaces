@@ -1,0 +1,28 @@
+#!/bin/bash
+source ~/.colors
+
+COLOR_FOREGROUND="%{U#FF${COLOR9:1}+u}"
+COLOR_BACKGROUND="%{U#FF${COLOR3:1}+u}"
+
+
+focused="$COLOR_FOREGROUND----------%{U-}"
+active="$COLOR_BACKGROUND----------%{U-}"
+
+desktops() {
+  for desktop in `bspc query -D`
+  do
+      if [ $desktop = "`bspc query -d focused -D`" ]
+        then
+          desktops="$desktops $focused"
+      else 
+        desktops="$desktops $active"
+      fi
+  done
+  echo $desktops
+}
+
+while :; do
+  output=$(desktops)
+  echo "%{c}$output%{r}"
+  sleep 0.1
+done

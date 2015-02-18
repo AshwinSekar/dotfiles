@@ -1,0 +1,56 @@
+! #include "/home/asekar/.colors/natural.xr"
+
+urxvt*background:  #151A21
+urxvt*foreground:  #B5E8DA
+urxvt*cursorColor: #B5E8DA
+! Xresources
+!
+! Dzen Settings
+! dzen2.font:       -*-fixed-*-*-*-*-*-*-*-*-*-*-*-*
+! dzen2.font:       xft:monaco:size=10
+! bar.font: xft:lemon:pixelsize=8:antialias=false:hinting=true
+! dzen2.letterSpace: -3
+! dzen2.foreground: white
+! dzen2.background: black
+
+! URxvt Settings
+URxvt.scrollBar: false
+! URxvt.font: -*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
+! URxvt.font: xft:monaco:size=10
+! URxvt.font: xft:uushi:pixelsize=10:antialias=false:hinting=true
+
+! TTF Fonts
+! URxvt.font: xft:fira mono:style=Medium:pixelsize=10
+! URxvt.boldFont: xft:fira mono:style=Medium:pixelsize=10
+! URxvt.font: xft:Droid Sans Mono:size=8
+! URxvt.boldFont: xft:Droid Sans Mono:size=8
+! URxvt.font: xft:Inconsolata:pixelsize=12
+! URxvt.boldFont: xft:Inconsolata:pixelsize=12
+! URxvt.font: xft:Source Code Pro:style=Regular:size=8
+! URxvt.boldFont: xft:Source Code Pro:style=Regular:size=8
+URxvt.letterSpace:   0
+
+! URxvt.font: xft:Inconsolata:style=medium:size=10
+! URxvt.boldFont: xft:Inconsolata:style=medium:size=10
+ URxvt.font: xft:lemon:pixelsize=10:antialias=true
+ URxvt.boldFont: xft:lemon:pixelsize=10
+! URxvt.font: xft:envypn:pixelsize=13
+! URxvt.boldFont: xft:envypn:pixelsize=13
+! URxvt.boldFont: xft:lemon:pixelsize=10:antialias=false:hinting=true
+
+! Xft.dpi: 96
+! Xft.autohint: true
+! Xft.antialias: true
+! Xft.hinting: true
+! Xft.hintstyle: hintslight
+
+! urxvt*transparent: true
+! urxvt*shading: 10
+
+urxvt.internalBorder: 10
+
+! URxvt clickable links
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
