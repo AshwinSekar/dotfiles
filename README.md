@@ -11,7 +11,6 @@ Arch linux dotfiles
 
 # Current Setup
 Currently using a script to generate color schemes from wallpapers (https://github.com/everett1992/wp)
-Some sample workflow:
 
 Busy
 <img src="http://i.imgur.com/0OqQ2Ro.png" />
