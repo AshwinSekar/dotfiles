@@ -1,7 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/asekar/.vim/ftplugin'
 let g:netrw_dirhist_2='/home/asekar/.scripts/wp/misc'
 let g:netrw_dirhist_3='/home/asekar/.dbus'
 let g:netrw_dirhist_4='/home/asekar/.eclipse'
 let g:netrw_dirhist_5='/home/asekar/.eclipse/org.eclipse.platform_4.4.1_1543616141_linux_gtk_x86_64'
+let g:netrw_dirhist_6='/home/asekar/.vim/bundle/vim-node/autoload/node'
+let g:netrw_dirhist_7='/home/asekar/.config'
