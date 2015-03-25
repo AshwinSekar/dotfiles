@@ -15,6 +15,7 @@ wp change
 
 # Include other font dirs
 xset +fp /usr/share/fonts/adobe-source-code-pro
+xset +fp ~/.fonts
 xset fp rehash
 
 
