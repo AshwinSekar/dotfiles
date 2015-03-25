@@ -1,7 +1,6 @@
+set nocompatible
 execute pathogen#infect()
 Helptags
-
-set nocompatible
 
 syntax on
 filetype plugin indent on
@@ -15,7 +14,7 @@ set t_Co=16
 
 " Leader key / remaps
 let mapleader = ","                             " Use , instead of \
-inoremap jk <Esc>                               " Use jj to exit insert
+inoremap jk  <Esc>                               " Use jj to exit insert
 
 " Plugins
 " neocomplcache
@@ -35,15 +34,22 @@ set laststatus=2 " statusline with one file
 let g:airline#extensions#tabline#enabled = 1 " top bar
 let g:airline#extensions#tabline#fnamemod = ':t' " just show filename
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme = "monochrome"
-let g:airline_left_sep = '' " Straight separator
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline_theme = "dark"
+let g:airline_powerline_fonts = 1
+let g:airline_detect_paste=1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+" Open help in a new tab
+cabbrev help tab help
+cabbrev e tabedit
 " Unite
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 let g:unite_source_history_yank_enable = 1
@@ -56,9 +62,10 @@ nnoremap <silent><leader>ll :<C-u>UniteResume<CR>
 " Syntastic
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
-
-
-" Color Scheme
+let g:syntastic_error_symbol = '✖'
+let g:syntastic_warning_symbol = '▲'
+let g:syntastic_style_warning_symbol = '▲'
+let g:syntastic_style_error_symbol = '▲'
 
 set showcmd         " Show command sequence as entering
 set ruler           " Show row / col
@@ -71,9 +78,9 @@ set numberwidth=3
 nmap <silent> ,/ :nohlsearch<CR>                " Clear search
 
 " Buffers as tabs
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
-nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>l :tabnext<CR>
+nmap <leader>h :tabnext<CR>
+nmap <leader>q :tabclose<CR>
 
 " Tabs / Spacing
 set nowrap          " Don't wrap lines
@@ -118,6 +125,15 @@ set pastetoggle=<F2>
 " EXTRA FUNCTIONS
 " ---------------------------------------------------------------------
 " Show highlighting gropus for current word
+highlight SpellBad ctermbg=196
+highlight SpellCAP ctermbg=226
+highlight Folded ctermbg=242
+highlight SignColumn ctermbg=0
+highlight SyntasticErrorSign ctermfg=160
+highlight SyntasticWarningSign ctermfg=226
+highlight SyntasticWarningStyleSign ctermfg=226
+highlight SyntasticErrorStyleSign ctermfg=226
+
 function! SynStack()
     if !exists("*synstack")
         return
@@ -125,3 +141,7 @@ function! SynStack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+command W w
+command Q q
+command WQ wq
+command Wq wq
