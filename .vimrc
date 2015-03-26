@@ -77,10 +77,9 @@ set numberwidth=3
 
 nmap <silent> ,/ :nohlsearch<CR>                " Clear search
 
-" Buffers as tabs
-nmap <leader>l :tabnext<CR>
-nmap <leader>h :tabnext<CR>
-nmap <leader>q :tabclose<CR>
+" TABS
+nmap <C-l> :tabnext<CR>
+nmap <C-h> :tabprevious<CR>
 
 " Tabs / Spacing
 set nowrap          " Don't wrap lines
