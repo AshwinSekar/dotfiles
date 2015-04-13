@@ -78,8 +78,8 @@ set numberwidth=3
 nmap <silent> ,/ :nohlsearch<CR>                " Clear search
 
 " TABS
-nmap <C-l> :tabnext<CR>
-nmap <C-h> :tabprevious<CR>
+map <C-l> :tabnext<CR>
+map <C-h> :tabprevious<CR>
 
 " Tabs / Spacing
 set nowrap          " Don't wrap lines
