@@ -21,5 +21,4 @@ export PS1="\e[0;31m \w >> \e[0;36m"
 
 export EDITOR=vim
 
-
-
+set -o vi
