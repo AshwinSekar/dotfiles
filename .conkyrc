@@ -1,88 +1,102 @@
+# Conky settings #
 background no
-font sans:size=8
-#xftfont sans:size=10
-use_xft yes
-xftalpha 0.9
-update_interval 0.2
-imlib_cache_size 0
-template1 ~/nyan/nyan.gif.
-template2 -p 40,700 -s 150x150
-total_run_times 0
-own_window yes
-own_window_type normal
-own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+update_interval 1
 double_buffer yes
-minimum_size 600
-maximum_width 225
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders yes
-default_color white
-default_shade_color black
-default_outline_color green
-alignment top_right
-gap_x 20
-gap_y 20
 no_buffers yes
-uppercase no
-cpu_avg_samples 2
-override_utf8_locale no
-uppercase no # set to yes if you want all text to be in uppercase
+
+# Window specifications #
+gap_x 0
+gap_y 0
+alignment middle_middle
+minimum_size 600 360
+maximum_width 600
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+#own_window_argb_visual yes
+#own_window_argb_value 0
+#border_margin 0
+#border_inner_margin 0
+#border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no 
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftalpha 0
+xftfont Raleway:size=10
+
+override_utf8_locale yes
+
+imlib_cache_size 0
+
+# Color scheme #
+default_color FFFFFF
+
+color1 FFFFFF
 
 TEXT
-${color tan2}${font Neuropolitical:size=8:bold}TIME ${color slategrey} ${hr 2} ${color white}${font}
-${color white}${font Neuropolitical:pixelsize=56}${time %I:%M}${font}
-${color  white}${font Neuropolitical:pixelsize=11}${time %a %d %b %Y}${font}
-
-${color tan2}${font Neuropolitical:size=8:bold}SYSTEM ${color slategrey} ${hr 2} ${color white}${font}
- Hostname: $alignr$nodename
- Kernel: $alignr$kernel
- Uptime: $alignr$uptime
-
-${color tan2}${font Neuropolitical:size=8:bold}PROCESSOR ${color slateGray} ${hr 2} ${color white}${font}
- CPU: ${alignr}${freq} MHz
- Processes: ${alignr}$processes ($running_processes running)
- CPU1: ${cpu cpu1}% ${alignr}${cpubar cpu1 6,140}
- CPU2: ${cpu cpu2}% ${alignr}${cpubar cpu2 6,140}
- CPU3: ${cpu cpu3}% ${alignr}${cpubar cpu3 6,140}
- CPU4: ${cpu cpu4}% ${alignr}${cpubar cpu4 6,140}
- CPU5: ${cpu cpu5}% ${alignr}${cpubar cpu5 6,140}
- CPU6: ${cpu cpu6}% ${alignr}${cpubar cpu6 6,140}
- CPU7: ${cpu cpu7}% ${alignr}${cpubar cpu7 6,140}
- CPU8: ${cpu cpu8}% ${alignr}${cpubar cpu8 6,140}
-
-${color tan2}${font Neuropolitical:size=8:bold}MEMORY ${color SlateGray} ${hr 2} ${color white}${font}
- Ram: ${memperc}% ${alignr}${membar 5,140}
-${font sans:pixelsize=7.85}${alignc 48}${mem} / ${memmax}${font}
-
-${color tan2}${font Neuropolitical:size=8:bold}PROCESSES ${color SlateGray} ${hr 2} ${color white}${font}
- NAME: $alignr   PID   CPU  MEM ${font sans:pixelsize=9}
-   ${top name 1} $alignr ${top pid 1} ${top cpu 1} ${top mem 1}
-   ${top name 2} $alignr ${top pid 2} ${top cpu 2} ${top mem 2}
-   ${top name 3} $alignr ${top pid 3} ${top cpu 3} ${top mem 3}
-   ${top name 4} $alignr ${top pid 4} ${top cpu 4} ${top mem 4}
-   ${top name 5} $alignr ${top pid 5} ${top cpu 5} ${top mem 5}
-   ${top name 6} $alignr ${top pid 6} ${top cpu 5} ${top mem 6}
-   ${top name 7} $alignr ${top pid 7} ${top cpu 7} ${top mem 7}
-   ${top name 8} $alignr ${top pid 8} ${top cpu 8} ${top mem 8}
-   ${top name 9} $alignr ${top pid 9} ${top cpu 9} ${top mem 9}
-
-${font Neuropolitical:bold:size=8}${color tan2}FILESYSTEM ${color slategrey} ${hr 2} ${color white}${font}
- Root: ${alignr}${fs_used_perc /}%  ${fs_bar 6, 140} 
-${font sans:pixelsize=7.85}${alignc 48}Size: ${fs_used /} / ${fs_size}${font}
-
-#Nyancat Script(Remove # to activate.)
-${color tan2}${font Neuropolitical:size=8:bold}NYAN ${color slateGray} ${hr 2} ${color white}${font}
-${alignc}${if_updatenr 01}${image ${template1}001 ${template2}}${endif}
-${if_updatenr 02}${image ${template1}002 ${template2}}${endif}
-${if_updatenr 03}${image ${template1}003 ${template2}}${endif}
-${if_updatenr 04}${image ${template1}004 ${template2}}${endif}
-${if_updatenr 05}${image ${template1}005 ${template2}}${endif}
-${if_updatenr 06}${image ${template1}006 ${template2}}${endif}
-${if_updatenr 07}${image ${template1}007 ${template2}}${endif}
-${if_updatenr 08}${image ${template1}008 ${template2}}${endif}
-${if_updatenr 09}${image ${template1}009 ${template2}}${endif}
-${if_updatenr 10}${image ${template1}010 ${template2}}${endif}
-${if_updatenr 11}${image ${template1}011 ${template2}}${endif}
+\
+#-----WOIED-----#
+\
+\
+${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=2473224&u=f" -o ~/.cache/weather.xml}\
+\
+\
+#---Clock+Date---#
+\
+\
+${font Raleway:weight=Light :size=100}${alignc}${time %H}${alignc}:${alignc}${time %M}
+${font Raleway:weight=Light:size=32}${voffset -60}${alignc}${time %A %B %d}\
+\
+\
+#---High Temperatures---#
+\
+\
+${font Raleway:size=20}\
+${voffset 76}${goto 40}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°
+${font Raleway:weight=Light:size=14}\
+${voffset -28}${goto 160}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°\
+${goto 270}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°\
+${goto 380}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°\
+${goto 490}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°\
+\
+\
+#---Low Temparatures---#
+\
+\
+${font Raleway:weight=Light:size=10}\
+${voffset 48}${goto 210}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°\
+${goto 320}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°\
+${goto 430}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°\
+${goto 540}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°\
+\
+\
+#---Name of the day---#
+\
+\
+${font Raleway:weight=Light:size=14}\
+${voffset 30}${goto 60}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1' | tr '[a-z]' '[A-Z]'}\
+${goto 170}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2' | tr '[a-z]' '[A-Z]'}\
+${goto 280}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3' | tr '[a-z]' '[A-Z]'}\
+${goto 390}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4' | tr '[a-z]' '[A-Z]'}\
+${goto 500}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5' | tr '[a-z]' '[A-Z]'}\
+\
+\
+#---Weather Icons---#
+\
+\
+${execi 300 cp -f ~/.conky-vision-icons/$(grep "yweather:condition" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 61,260 -s 32x32}\
+\
+${execi 300 cp -f ~/.conky-vision-icons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2').png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 171,260 -s 32x32}\
+\
+${execi 300 cp -f ~/.conky-vision-icons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3').png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 281,260 -s 32x32}\
+\
+${execi 300 cp -f ~/.conky-vision-icons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4').png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 391,260 -s 32x32}\
+\
+${execi 300 cp -f ~/.conky-vision-icons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5').png ~/.cache/weather-5.png}${image ~/.cache/weather-5.png -p 501,260 -s 32x32}${font}${voffset -46}\
