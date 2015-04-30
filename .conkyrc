@@ -1,14 +1,14 @@
 # Conky settings #
-background no
+background yes
 update_interval 1
 double_buffer yes
 no_buffers yes
 
 # Window specifications #
 gap_x 0
-gap_y 0
+gap_y 150
 alignment middle_middle
-minimum_size 600 360
+minimum_size 600 460
 maximum_width 600
 own_window yes
 own_window_type desktop
