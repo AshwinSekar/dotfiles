@@ -1,8 +1,8 @@
 ! #include "/home/asekar/.colors/natural.xr"
 !
 urxvt*.depth: 32
-urxvt*.background: rgba:3f00/3f00/3f00/ee00
-! urxvt*.background: rgba:1500/1A00/2100/dddd
+! urxvt*.background: rgba:3f00/3f00/3f00/ee00
+urxvt*.background: rgba:1500/1A00/2100/dddd
 ! urxvt*.background: [95]#000000
 ! urxvt*background:  #151A21
 urxvt*foreground:  #B5E8DA
