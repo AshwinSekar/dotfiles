@@ -34,7 +34,7 @@ bright() {
 }
 
 info() {
-  echo "%{A:urxvt -title 'screenfetch' -e bash -c 'bspc window -t floating;screenfetch;read':}Ashwin Sekar%{A}"
+  echo "%{A:urxvt -title 'screenfetch' -e bash -c 'bspc window -t floating;screenfetch -t;read':}Ashwin Sekar%{A}"
 }
 
 wifi() {
