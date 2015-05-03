@@ -6,7 +6,7 @@ no_buffers yes
 
 # Window specifications #
 gap_x 0
-gap_y 150
+gap_y 420
 alignment middle_middle
 minimum_size 600 460
 maximum_width 600
@@ -52,7 +52,7 @@ ${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=2473224&u=f" -o 
 \
 \
 ${font Raleway:weight=Light :size=100}${alignc}${time %H}${alignc}:${alignc}${time %M}
-${font Raleway:weight=Light:size=32}${voffset -60}${alignc}${time %A %B %d}\
+${font Raleway:weight=Light:size=32}${voffset -60}${alignc}\
 \
 \
 #---High Temperatures---#
