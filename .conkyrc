@@ -21,8 +21,8 @@ own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
 #border_outer_margin 0
 
 # Graphics settings #
-draw_shades no
-draw_outline no 
+draw_shades yes
+draw_outline no
 draw_borders no
 draw_graph_borders no
 
