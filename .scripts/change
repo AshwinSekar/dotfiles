@@ -2,6 +2,7 @@
 
 source ~/.colors
 
+pkill conky
 pkill bar
 pkill network
 
@@ -12,6 +13,7 @@ else
   wp change $1
 fi
 
+conky &
 panel &
 bottombar &
 bspc config focused_border_color $COLOR3
