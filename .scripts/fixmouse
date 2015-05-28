@@ -1,0 +1,5 @@
+#!/bin/bash
+# Fixes a common mouse module issue by reloading the kernel module
+# To be used with sudo
+modprobe -r psmouse
+modprobe psmouse
