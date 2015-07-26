@@ -1,4 +1,6 @@
 #!/bin/bash
 source ~/.colors
+height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2`
+width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1`
 
-dmenu_run -i -h 900 -w 1600 -q -l 1 -o .9 -p "                                                                                                 execute" -nb "#000000" -nf "#bbbbbb" -sb "#000000" -sf $COLOR3
+dmenu_run -i -h $height -w $width -q -l 1 -o .9 -p "                                                                                                 execute" -nb "#000000" -nf "#bbbbbb" -sb "#000000" -sf $COLOR3
