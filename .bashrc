@@ -17,7 +17,7 @@ fg=('\[\e[0;30m\]' '\[\e[0;31m\]' '\[\e[0;32m\]' '\[\e[0;33m\]'
 nofg='\[\e[0m\]'
 
 
-export PS1="\e[0;31m \w >> \e[0;36m"
+export PS1="\[\e[0;31m\] \w >> \[\e[0;36m\]"
 
 export EDITOR=vim
 
