@@ -3,19 +3,20 @@
 DELAY=2
 OUTF1=/tmp/downspeed
 OUTF2=/tmp/upspeed
+INTERFACE=`ip link | grep BROADCAST,MULTICAST,UP | cut -d ":" -f 2 | tr -d " "`
 
 sample()
 {
-    rx1=$(cat /sys/class/net/wlp0s26u1u4i2/statistics/rx_bytes)
-    tx1=$(cat /sys/class/net/wlp0s26u1u4i2/statistics/tx_bytes)
+    rx1=$(cat /sys/class/net/$INTERFACE/statistics/rx_bytes)
+    tx1=$(cat /sys/class/net/$INTERFACE/statistics/tx_bytes)
     
     sleep $DELAY
     
-    rx2=$(cat /sys/class/net/wlp0s26u1u4i2/statistics/rx_bytes)
+    rx2=$(cat /sys/class/net/$INTERFACE/statistics/rx_bytes)
     rxdiff=$[ $rx2 - $rx1 ]
     rxtrue=$[ $rxdiff / 1024 / $DELAY ]
 
-    tx2=$(cat /sys/class/net/wlp0s26u1u4i2/statistics/tx_bytes)
+    tx2=$(cat /sys/class/net/$INTERFACE/statistics/tx_bytes)
     txdiff=$[ $tx2 - $tx1]
     txtrue=$[ $txdiff / 1024 / $DELAY ]
     
