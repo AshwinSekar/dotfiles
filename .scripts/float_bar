@@ -19,7 +19,7 @@ batt() {
 }
 
 vol() {
-  level=`amixer get Master | tail -1 | awk '{print $4}' | tr -d '[]'`
+  level=`(pactl list sinks | grep "Volume: front-left: ")| awk '{print $5}'`
   mute=`amixer get Master | tail -1 | awk '{print $6}' | tr -d '[]'`
   if [ "$mute" == "on" ]
   then
