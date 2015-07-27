@@ -51,7 +51,7 @@ ${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=2473224&u=f" -o 
 #---Clock+Date---#
 \
 \
-${font Raleway:weight=Light :size=100}${alignc}${time %H}${alignc}:${alignc}${time %M}
+${font Raleway:weight=Light :size=100}${alignc}     ${alignc}${alignc}       
 ${font Raleway:weight=Light:size=32}${voffset -60}${alignc}\
 \
 \
