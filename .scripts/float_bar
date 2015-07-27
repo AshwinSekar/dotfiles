@@ -13,7 +13,7 @@ batt() {
   elif [ "$status" = "Discharging" ]
   then
     echo "$COLOR_FOREGROUND  $COLOR_OTHER $level"
-   else
+  else
     echo "%{F#FF00FF3F}  $COLOR_OTHER $level"
   fi
 }
@@ -21,16 +21,16 @@ batt() {
 vol() {
   level=`amixer get Master | tail -1 | awk '{print $4}' | tr -d '[]'`
   mute=`amixer get Master | tail -1 | awk '{print $6}' | tr -d '[]'`
-  if [ $mute == "on" ]
+  if [ "$mute" == "on" ]
   then
-    echo " $COLOR_OTHER $level";
+    echo " $COLOR_OTHER$level";
   else
-    echo " $COLOR_OTHER $level";
+    echo " $COLOR_OTHER$level";
   fi
 }
 
 bright() {
- printf "%.0f" `xbacklight -get`
+  printf "%.0f" `xbacklight -get`
 }
 
 info() {
@@ -41,8 +41,8 @@ wifi() {
   waw=`netctl list | grep '*' | cut -b 3-`
   if [ "$waw" != "" ]
   then
-    echo "$COLOR_FOREGROUND  $COLOR_OTHER $waw"
-    echo "$COLOR_FOREGROUND $COLOR_OTHER"
+    echo "$COLOR_FOREGROUND$COLOR_OTHER $waw"
+    echo "$COLOR_FOREGROUND$COLOR_OTHER"
     cat /tmp/downspeed
     echo "$COLOR_FOREGROUND $COLOR_OTHER"
     cat /tmp/upspeed
@@ -57,13 +57,23 @@ COLOR_OTHER="%{F#FF${COLOR5:1}}"
 
 while :; do
   buf="$COLOR_FOREGROUND   $(info)"
-  buf="$buf %{r}"
-  buf="$buf $(wifi)"
-  buf="$buf $COLOR_FOREGROUND $(batt)"
-  buf="$buf $COLOR_FOREGROUND $(vol)"
-  buf="$buf $COLOR_FOREGROUND  $COLOR_OTHER $(bright)"
-  buf="$buf $COLOR_FOREGROUND  $COLOR_OTHER $(clock)"
-  buf="$buf $COLOR_FOREGROUND %{A:urxvt -e shutdown now:}%{A}  $COLOR_FOREGROUND "
-  	
+  buf="$buf%{r}"
+  buf="$buf$(wifi)"
+
+  if [ `test -d "/sys/class/power_supply/BAT1"` ]
+  then
+    buf="$buf $COLOR_FOREGROUND $(batt)"
+  fi
+
+  buf="$buf $COLOR_FOREGROUND$(vol)"
+
+  if [ "`xbacklight 2>&1`" != "No outputs have backlight property" ]
+  then
+    buf="$buf $COLOR_FOREGROUND $COLOR_OTHER $(bright)"
+  fi
+
+  buf="$buf $COLOR_FOREGROUND$COLOR_OTHER $(clock)"
+  buf="$buf $COLOR_FOREGROUND%{A:urxvt -e shutdown now:}%{A} $COLOR_FOREGROUND "
+
   echo $buf
 done

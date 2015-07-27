@@ -1,7 +1,7 @@
 
 #! /bin/sh
 
-if [ $(pgrep -cx panel) -gt 1 ] ; then
+if [ $(pgrep -cx float_bar) -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
 	exit 1
 fi
@@ -11,8 +11,10 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-PANEL_HEIGHT=24
-PANEL_FONT_FAMILY=":pixelsize=10"
+height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2`
+PANEL_HEIGHT=$(($height / 37))
+#PANEL_FONT_FAMILY="xft:lemon:pixelsize=10:antialias=true"
+PANEL_FONT_FAMILY="lemon-10"
 PANEL_ICONS="FontAwesome-9"
 
 bspc config top_padding $PANEL_HEIGHT
@@ -26,12 +28,14 @@ network &
 
 
 #. panel_colors
- source ~/.colors
+source ~/.colors
 
 # Bar requires an alpha channel so I added a fake one
 COLOR_FOREGROUND=#FF${COLOR3:1}
 COLOR_BACKGROUND=#FF151A21
+width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1`
+width=$(($width - 20))
 
-float_bar | bar-aint-recursive -g 1580x$PANEL_HEIGHT+10+10 -f "$PANEL_FONT_FAMILY","$PANEL_ICONS" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | bash &
+float_bar | lemonbar -g ${width}x$PANEL_HEIGHT+10+10 -f "$PANEL_FONT_FAMILY" -f "$PANEL_ICONS" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | bash &
 
 wait
