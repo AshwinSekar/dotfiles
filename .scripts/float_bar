@@ -69,7 +69,7 @@ while :; do
 
   if [ "`xbacklight 2>&1`" != "No outputs have backlight property" ]
   then
-    buf="$buf $COLOR_FOREGROUND $COLOR_OTHER $(bright)"
+    buf="$buf $COLOR_FOREGROUND$COLOR_OTHER $(bright)"
   fi
 
   buf="$buf $COLOR_FOREGROUND$COLOR_OTHER $(clock)"
