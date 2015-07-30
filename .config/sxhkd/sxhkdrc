@@ -84,6 +84,10 @@ super + space
 super + z
     thunar
 
+# Lock screen
+super + q
+    cd ~/.scripts && lock
+
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
@@ -97,6 +101,12 @@ XF86AudioLowerVolume
 
 XF86AudioRaiseVolume
     amixer -q sset 'Master' 2%+
+
+button6
+    amixer -q sset 'Master' 2%+
+    
+button7
+    amixer -q sset 'Master' 2%-
     
 # Brightness
 XF86MonBrightnessUp
