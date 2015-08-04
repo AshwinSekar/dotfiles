@@ -81,6 +81,9 @@ super + Return
 super + space
     launcher 2> ~/.sxhkd.log
 
+super + g
+    chromium
+
 super + z
     thunar
 
