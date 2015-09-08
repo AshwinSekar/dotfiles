@@ -9,12 +9,12 @@ batt() {
   status=$(cat /sys/class/power_supply/BAT1/status)
   if [ "$level" -lt 20 -a "$status" = "Discharging" ]
   then
-    echo "%{F#FFFF3030}  $COLOR_OTHER $level"
+    echo "%{F#FFFF3030} $COLOR_OTHER$level"
   elif [ "$status" = "Discharging" ]
   then
-    echo "$COLOR_FOREGROUND  $COLOR_OTHER $level"
+    echo "${COLOR_FOREGROUND} $COLOR_OTHER$level" 
   else
-    echo "%{F#FF00FF3F}  $COLOR_OTHER $level"
+    echo "%{F#FF00FF3F} $COLOR_OTHER$level"
   fi
 }
 
@@ -60,9 +60,9 @@ while :; do
   buf="$buf%{r}"
   buf="$buf$(wifi)"
 
-  if [ `test -d "/sys/class/power_supply/BAT1"` ]
+  if [ -d "/sys/class/power_supply/BAT1" ]
   then
-    buf="$buf $COLOR_FOREGROUND $(batt)"
+    buf="$buf $COLOR_FOREGROUND$(batt)"
   fi
 
   buf="$buf $COLOR_FOREGROUND$(vol)"
