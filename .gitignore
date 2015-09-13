@@ -71,7 +71,7 @@
 .pki/
 .pulse-cookie
 .python_history
-.ssh/
+.ssh/known_hosts
 .steam/
 .steampath
 .steampid
