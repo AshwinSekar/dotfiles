@@ -1,4 +1,4 @@
 #!/bin/bash
-width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1`
-height=$((`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2` / 50))
+width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1 | head -n 1`
+height=$((`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2 | head -n 1` / 50))
 workspaces | lemonbar -b -g ${width}x$height -u $(($height / 2)) -F "#00000000" -B "#00000000"

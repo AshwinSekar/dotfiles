@@ -11,7 +11,7 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2`
+height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2 | head -n 1`
 PANEL_HEIGHT=$(($height / 37))
 #PANEL_FONT_FAMILY="xft:lemon:pixelsize=10:antialias=true"
 PANEL_FONT_FAMILY="lemon-10"
@@ -33,7 +33,7 @@ source ~/.colors
 # Bar requires an alpha channel so I added a fake one
 COLOR_FOREGROUND=#FF${COLOR3:1}
 COLOR_BACKGROUND=#FF151A21
-width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1`
+width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1 | head -n 1`
 width=$(($width - 20))
 
 float_bar | lemonbar -g ${width}x$PANEL_HEIGHT+10+10 -f "$PANEL_FONT_FAMILY" -f "$PANEL_ICONS" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | bash &
