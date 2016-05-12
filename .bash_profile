@@ -8,7 +8,7 @@ else
 fi
 
 # Add my custom scripts to path
-export PATH=$PATH:~/.scripts:~/.scripts/wp
+export PATH=$PATH:~/.scripts:~/.scripts/wp:~/.cabal/bin:~/bin
 
 
 # Colors for LS and Grep
