@@ -120,6 +120,10 @@ let python_highlight_space_errors = 0
 " Toggle pastemode with F2
 set pastetoggle=<F2>
 
+" Haskell bindings
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
+
 " ---------------------------------------------------------------------
 " EXTRA FUNCTIONS
 " ---------------------------------------------------------------------
