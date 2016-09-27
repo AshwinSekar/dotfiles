@@ -78,6 +78,9 @@ super + p
 super + Return
     urxvt
 
+super + shift + Return 
+    urxvt -e bash -c "sshpass -f .config/sxhkd/pass ssh andrew"
+
 super + space
     launcher 2> ~/.sxhkd.log
 
