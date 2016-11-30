@@ -53,5 +53,5 @@ if [ $(pgrep 'panel') ]; then
     pgrep 'panel' | xargs kill -s 9
 fi
 
-conky &
+# conky &
 panel &
