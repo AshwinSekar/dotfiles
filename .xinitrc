@@ -18,7 +18,7 @@ xset s noblank &
 xset -b
 
 # Activate BSPWM Window Manager
-sxhkd &
+sxhkd & 2>~/.sxhkd.log
 compton &
 bottombar &
 

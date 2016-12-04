@@ -8,6 +8,7 @@ Arch linux dotfiles
 - bar-ain't-recursive (Top and bottom bars)
 - urxvt (Terminal)
 - python-pillow (Image Module for wallpaper change)
+- dmenu2 (Launcher)
 
 # Current Setup
 Currently using a script to generate color schemes from wallpapers (https://github.com/everett1992/wp)

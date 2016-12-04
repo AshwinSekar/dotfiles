@@ -35,6 +35,7 @@ desktop_config window_gap       24
 bspc config split_ratio         0.50
 bspc config borderless_monocle  true
 bspc config gapless_monocle     true
+bspc config click_to_focus      true
 
 desktop_config border_width     1
 bspc config normal_border_color #151A21
@@ -53,5 +54,5 @@ if [ $(pgrep 'panel') ]; then
     pgrep 'panel' | xargs kill -s 9
 fi
 
-conky &
+# conky &
 panel &

@@ -1,5 +1,11 @@
 ! #include "/home/asekar/.colors/natural.xr"
-!
+Xft.dpi: 164
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
 urxvt*.depth: 32
 ! urxvt*.background: rgba:3f00/3f00/3f00/ee00
 urxvt*.background: rgba:1500/1A00/2100/dddd
@@ -28,8 +34,9 @@ URxvt.scrollBar: false
 ! URxvt.boldFont: xft:fira mono:style=Medium:pixelsize=10
 ! URxvt.font: xft:Droid Sans Mono:size=8
 ! URxvt.boldFont: xft:Droid Sans Mono:size=8
-! URxvt.font: xft:Inconsolata:pixelsize=12
-! URxvt.boldFont: xft:Inconsolata:pixelsize=12
+! urxvt.font:  xft:DejaVuSansMono:size=8
+urxvt.font: xft:Inconsolata for Powerline:size=11
+urxvt.boldFont: xft:Inconsolata for Powerline:size=11
 ! URxvt.font: xft:Source Code Pro:style=Regular:size=8
 ! URxvt.boldFont: xft:Source Code Pro:style=Regular:size=8
 ! URxvt.letterSpace:1
@@ -37,13 +44,13 @@ URxvt.scrollBar: false
 
 ! URxvt.font: xft:Inconsolata:style=medium:size=10
 ! URxvt.boldFont: xft:Inconsolata:style=medium:size=10
-! URxvt.font: xft:lemon:pixelsize=10:antialias=true
-! URxvt.boldFont: xft:lemon:pixelsize=10
+! URxvt.font: xft:lemon:size=10:antialias=true
+! URxvt.boldFont: xft:lemon:size=10
 ! URxvt.font: xft:envypn:pixelsize=13
 ! URxvt.boldFont: xft:envypn:pixelsize=13
 ! URxvt.boldFont: xft:lemon:pixelsize=10:antialias=false:hinting=true
-urxvt*font: xft:lemon:pixelsize=10:antialias=true
-urxvt*boldFont: xft:lemon:pixelsize=10:antialias=true
+! urxvt*font: xft:lemon:pixelsize=10:antialias=true
+! urxvt*boldFont: xft:lemon:pixelsize=10:antialias=true
 ! Xft.dpi: 96
 ! Xft.autohint: true
 ! Xft.antialias: true
@@ -59,4 +66,3 @@ urxvt.internalBorder: 10
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-

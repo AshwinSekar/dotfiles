@@ -5,8 +5,8 @@ clock() {
 }
 
 batt() {
-  level=$(cat /sys/class/power_supply/BAT1/capacity)
-  status=$(cat /sys/class/power_supply/BAT1/status)
+  level=$(cat /sys/class/power_supply/BAT0/capacity)
+  status=$(cat /sys/class/power_supply/BAT0/status)
   if [ "$level" -lt 20 -a "$status" = "Discharging" ]
   then
     echo "%{F#FFFF3030} $COLOR_OTHER$level"
@@ -34,7 +34,7 @@ bright() {
 }
 
 info() {
-  echo "%{A:urxvt -title 'screenfetch' -e bash -c 'bspc window -t floating;screenfetch -t;read':}Ashwin Sekar%{A}"
+  echo "%{A:urxvt -title 'screenfetch' -e bash -c 'bspc node -t floating;screenfetch -t;read':}Ashwin Sekar%{A}"
 }
 
 wifi() {
@@ -60,7 +60,7 @@ while :; do
   buf="$buf%{r}"
   buf="$buf$(wifi)"
 
-  if [ -d "/sys/class/power_supply/BAT1" ]
+  if [ -d "/sys/class/power_supply/BAT0" ]
   then
     buf="$buf $COLOR_FOREGROUND$(batt)"
   fi
