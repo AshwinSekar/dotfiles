@@ -8,7 +8,7 @@
 alias ls='ls --color=auto'
 alias pingg='ping -c 2 www.google.com'
 alias scr='bspc window -t floating;screenfetch;read'
-alias spotify='spotify --force-device-scale-factor=1.5'
+alias flux='redshift -l geoclue2'
 
 # Fancy prompt
 fg=('\[\e[0;30m\]' '\[\e[0;31m\]' '\[\e[0;32m\]' '\[\e[0;33m\]'
