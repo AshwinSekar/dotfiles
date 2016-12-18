@@ -63,6 +63,10 @@ urxvt.boldFont: xft:Inconsolata for Powerline:size=11
 urxvt.internalBorder: 10
 
 ! URxvt clickable links
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/firefox
+URxvt.perl-ext-common: default,matcher,clipboard
+URxvt.url-launcher: /usr/bin/chromium
 URxvt.matcher.button: 1
+
+! Clipboard
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
