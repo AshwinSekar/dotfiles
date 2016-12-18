@@ -9,6 +9,8 @@ Arch linux dotfiles
 - urxvt (Terminal)
 - python-pillow (Image Module for wallpaper change)
 - dmenu2 (Launcher)
+- adapta-nokto (GTK3)
+- numix-circle (Icon theme)
 
 # Current Setup
 Currently using a script to generate color schemes from wallpapers (https://github.com/everett1992/wp)
