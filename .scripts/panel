@@ -18,9 +18,6 @@ PANEL_ICONS="FontAwesome:size=11"
 
 bspc config top_padding $PANEL_HEIGHT
 
-# Get network speeds
-network &
-
 #bspc control --subscribe > "$PANEL_FIFO" &
 #xtitle -sf 'T%s' > "$PANEL_FIFO" &
 #clock -sf 'S%a %H:%M' > "$PANEL_FIFO" &
