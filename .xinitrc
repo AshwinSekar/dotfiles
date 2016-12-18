@@ -22,6 +22,9 @@ sxhkd & 2>~/.sxhkd.log
 compton &
 bottombar &
 
+# Start redshift
+redshift & 2>~/.redshift.log
+
 # Panel (also in /etc/profile)
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
