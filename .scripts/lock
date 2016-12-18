@@ -1,7 +1,7 @@
 #!/bin/bash
  
 # Dependencies:
-# imagemagick
+# graphiccsmagick
 # i3lock-color-git
 # scrot
  
@@ -13,8 +13,11 @@ IMAGE=/tmp/i3lock.png
 #BLURTYPE="5x3" # 3.80s
 BLURTYPE="0x3" # 2.90s
 #BLURTYPE="2x3" # 2.92s
+#BLURTYPE="10x1" # 2.90s
 
 scrot $IMAGE
-gm convert $IMAGE -blur $BLURTYPE - | gm composite -gravity center lock.png - $IMAGE
+# gm convert $IMAGE -blur $BLURTYPE - | gm composite -gravity center lock.png - $IMAGE
+gm convert $IMAGE -filter Gaussian -resize 20% -define filter:sigma=0.0 -resize 500% - | gm composite -gravity center lock.png - $IMAGE
+# gm convert $IMAGE -resize 50% -resize 200% - | gm composite -gravity center lock.png - $IMAGE
 i3lock --textcolor=ffffff00 --insidecolor=ffffff1c --ringcolor=ffffff3e --linecolor=ffffff00 --keyhlcolor=00000080 --ringvercolor=00000000 --insidevercolor=0000001c --ringwrongcolor=00000055 --insidewrongcolor=0000001c  -i $IMAGE
 rm $IMAGE
