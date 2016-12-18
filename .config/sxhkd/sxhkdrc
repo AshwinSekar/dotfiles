@@ -101,8 +101,9 @@ super + Escape
     pkill -USR1 -x sxhkd
 
 # Sound
+# We use pactl here because amixer doesn't toggle properly
 XF86AudioMute
-    amixer -q sset 'Master' toggle
+    pactl set-sink-mute 0 toggle
 
 XF86AudioLowerVolume
     amixer -q sset 'Master' 2%-
