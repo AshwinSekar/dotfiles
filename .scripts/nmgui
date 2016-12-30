@@ -1,0 +1,18 @@
+#! /bin/bash
+wifi=`nmcli dev | grep connected | awk '{print $4}'`
+if [ "$wifi" == "" ]
+then 
+  wifi="-"
+fi
+namesize=`inkscape --without-gui --query-id=id1 -W <(echo '<svg><text id="id1" style="font-size:'16'px;font-family:'Inconsolata';">'$wifi'</text></svg>') 2>/dev/null`
+namesize=`echo "scale=0; 1.662837 * $namesize + 548.8971" | bc`
+COLOR_BACKGROUND=0xff151A21
+height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2 | head -n 1`
+ICON_SIZE=$(($height / 50))
+SLOT_SIZE=$(($height / 37))
+TOP_PAD=$((9 + ($SLOT_SIZE - $ICON_SIZE) / 2))
+nm-applet 2>&1 > nm.log &
+trayer --widthtype request --heighttype pixel --height $ICON_SIZE \
+       --transparent true --alpha 0 --tint $COLOR_BACKGROUND \
+       --edge top --distance $TOP_PAD --margin $namesize --align right \
+       --SetDockType true --SetPartialStrut false 2>&1 > tray.log &

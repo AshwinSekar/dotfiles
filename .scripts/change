@@ -5,6 +5,8 @@ source ~/.colors
 pkill conky
 pkill bar
 pkill network
+pkill nm-applet
+pkill trayer
 
 if [ -z $1 ]
 then

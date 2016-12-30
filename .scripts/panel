@@ -32,6 +32,7 @@ COLOR_BACKGROUND=#FF151A21
 width=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 1 | head -n 1`
 width=$(($width - 20))
 
+nmgui 2>&1 > nmgui.log
 float_bar | lemonbar -g ${width}x$PANEL_HEIGHT+10+10 -f "$PANEL_FONT_FAMILY" -f "$PANEL_ICONS" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | bash &
 
 wait

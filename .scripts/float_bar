@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 clock() {
   date +%a\ %I:%M\ %p
 }
@@ -38,15 +39,24 @@ info() {
 }
 
 wifi() {
-  waw=`netctl list | grep '*' | cut -b 3-`
-  if [ "$waw" != "" ]
-  then
-    echo "$COLOR_FOREGROUND$COLOR_OTHER $waw"
-    echo "$COLOR_FOREGROUND$COLOR_OTHER"
-    cat /tmp/downspeed
-    echo "$COLOR_FOREGROUND $COLOR_OTHER"
-    cat /tmp/upspeed
+  waw=`nmcli dev | grep connected | awk '{print $4}'`
+  if [ "$waw" == "" ]
+  then 
+    waw="--"
   fi
+  if [[ !first && $waw != $old ]]
+  then
+    namesize=`inkscape --without-gui --query-id=id1 -W <(echo '<svg><text id="id1" style="font-size:'16'px;font-family:'Inconsolata';">'$waw'</text></svg>') 2>/dev/null`
+    namesize=`echo "scale=0; 1.662837 * $namesize + 548.8971" | bc`
+    killall trayer
+    trayer --widthtype request --heighttype pixel --height $ICON_SIZE \
+       --transparent true --alpha 0 --tint $COLOR_BACKGROUND \
+       --edge top --distance $TOP_PAD --margin $namesize --align right \
+       --SetDockType true --SetPartialStrut false 2>&1 > tray.log &
+  fi
+  old=$waw
+  # 
+  buf="$buf$COLOR_FOREGROUND $COLOR_OTHER $waw"
 }
 
 # Get our colors
@@ -55,10 +65,19 @@ source ~/.colors
 COLOR_FOREGROUND="%{F#FF${COLOR3:1}}"
 COLOR_OTHER="%{F#FF${COLOR5:1}}"
 
+COLOR_BACKGROUND=0xff151A21
+height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2 | head -n 1`
+ICON_SIZE=$(($height / 50))
+SLOT_SIZE=$(($height / 37))
+TOP_PAD=$((9 + ($SLOT_SIZE - $ICON_SIZE) / 2))
+first=true
+old=""
+
 while :; do
   buf="$COLOR_FOREGROUND   $(info)"
   buf="$buf%{r}"
-  buf="$buf$(wifi)"
+  # We have to call the function here cuz we need to update global vars
+  wifi
 
   if [ -d "/sys/class/power_supply/BAT0" ]
   then
@@ -76,4 +95,5 @@ while :; do
   buf="$buf $COLOR_FOREGROUND%{A:urxvt -e shutdown now:}%{A} $COLOR_FOREGROUND "
 
   echo $buf
+  first=false
 done
