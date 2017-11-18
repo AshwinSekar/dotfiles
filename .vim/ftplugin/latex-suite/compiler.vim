@@ -161,7 +161,7 @@ function! Tex_RunLaTeX()
 	let l:origdir = fnameescape(getcwd())
 	call Tex_CD(expand("%:p:h"))
 
-	let initTarget = s:target
+	let initTarget = 'pdf' " s:target
 
 	" first get the dependency chain of this format.
 	call Tex_Debug("Tex_RunLaTeX: compiling to target [".s:target."]", "comp")

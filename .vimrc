@@ -8,13 +8,20 @@ filetype plugin indent on
 " Getting vim to work with latex
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
+set iskeyword+=:
+
+" SML
+au Filetype sml setlocal conceallevel=2
 
 " Limit to 16 colors
 set t_Co=16
 
 " Leader key / remaps
-let mapleader = ","                             " Use , instead of \
-inoremap jk  <Esc>                               " Use jj to exit insert
+let mapleader = ","
+inoremap jk  <Esc>
+
+" Trailing whitespace
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Plugins
 " neocomplcache
@@ -76,6 +83,20 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Ignore some warnings
+let g:Tex_IgnoredWarnings =
+    \'Underfull'."\n".
+    \'Overfull'."\n".
+    \'Intersentence spacing'."\n".
+    \'specifier changed to'."\n".
+    \'You have requested'."\n".
+    \'Missing number, treated as zero.'."\n".
+    \'There were undefined references'."\n".
+    \'Citation %.%# undefined'."\n".
+    \'Double space found.'."\n" .
+    \'possible'."\n"
+let g:Tex_IgnoreLevel = 10
+
 set showcmd         " Show command sequence as entering
 set ruler           " Show row / col
 " set cursorline      " Show line with cursor
@@ -84,7 +105,7 @@ set ruler           " Show row / col
 set number
 set numberwidth=3
 
-nmap <silent> ,/ :nohlsearch<CR>                " Clear search
+nmap <silent> ,<SPACE> :nohlsearch<CR>
 
 " TABS
 map <C-l> :tabnext<CR>
