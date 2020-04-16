@@ -25,6 +25,7 @@ nofg='\[\e[0m\]'
 export PS1="\[\e[0;31m\] \w >> \[\e[0;36m\]"
 
 export EDITOR=vim
+export TERM=rxvt
 
 rmd () {
   pandoc $1 | lynx -stdin
