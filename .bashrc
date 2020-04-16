@@ -9,8 +9,10 @@ alias ls='ls --color=auto'
 alias pingg='ping -c 2 www.google.com'
 alias scr='bspc window -t floating;screenfetch;read'
 alias flux='redshift -l geoclue2'
-alias cmu='cd ~/CMU/Junior/'
+alias cmu='cd ~/CMU/Alumni/saved_courses/15410/p0/'
+alias gs='git status'
 alias '..'='cd ..'
+alias mk='make'
 
 # Fancy prompt
 fg=('\[\e[0;30m\]' '\[\e[0;31m\]' '\[\e[0;32m\]' '\[\e[0;33m\]'
@@ -40,3 +42,6 @@ venv() {
     fi
 }
 venv27() { venv 27 ; }
+
+export CLASSPATH=/home/asekar/CMU/Senior/15440/hw4/15440-p4/lib/:/home/asekar/CMU/Senior/15440/hw4/15440-p4/src
+export PATH=/home/asekar/.cabal/bin/:$PATH

@@ -7,8 +7,9 @@ filetype plugin indent on
 
 " Getting vim to work with latex
 set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
+let g:tex_flavor='xelatex'
 set iskeyword+=:
+let g:Tex_CompileRule_pdf='xelatex --interaction=nonstopmode $*'
 
 " SML
 au Filetype sml setlocal conceallevel=2

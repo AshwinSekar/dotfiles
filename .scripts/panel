@@ -12,8 +12,8 @@ mkfifo "$PANEL_FIFO"
 
 height=`xrandr | grep '*' | cut -d " " -f 4 | cut -d "x" -f 2 | head -n 1`
 PANEL_HEIGHT=$(($height / 37))
-#PANEL_FONT_FAMILY="xft:lemon:pixelsize=10:antialias=true"
-PANEL_FONT_FAMILY="Inconsolata:size=12"
+PANEL_FONT_FAMILY="xft:lemon:pixelsize=18:antialias=true"
+#PANEL_FONT_FAMILY="Inconsolata:size=12"
 PANEL_ICONS="FontAwesome:size=11"
 
 bspc config top_padding $PANEL_HEIGHT

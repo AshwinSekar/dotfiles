@@ -95,7 +95,6 @@ Robotic hand/
 .sxhkd.log
 TA/
 .thumbnails/
-.tmux.conf
 .vim/bundle/*
 .viminfo
 .vim/.netrwhist

@@ -13,7 +13,7 @@ batt() {
     echo "%{F#FFFF3030} $COLOR_OTHER$level"
   elif [ "$status" = "Discharging" ]
   then
-    echo "${COLOR_FOREGROUND} $COLOR_OTHER$level" 
+    echo "${COLOR_FOREGROUND} $COLOR_OTHER$level"
   else
     echo "%{F#FF00FF3F} $COLOR_OTHER$level"
   fi
@@ -39,9 +39,9 @@ info() {
 }
 
 wifi() {
-  waw=`nmcli dev | grep connected | awk '{print $4}'`
+  waw=$(nmcli dev | grep connected | awk '{print $4}')
   if [ "$waw" == "" ]
-  then 
+  then
     waw="--"
   fi
   if [[ !first && $waw != $old ]]
