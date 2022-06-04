@@ -354,6 +354,7 @@ Session.vim
 .netrwhist
 # auto-generated tag files
 tags
+*.vi
 
 
 ### Windows ###
@@ -594,3 +595,9 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.tex
+
+# swp
+*.swp
+
+# stderr
+*.err

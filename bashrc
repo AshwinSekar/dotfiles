@@ -40,8 +40,11 @@ alias cpp="cd ~/Documents/c++/"
 
 alias please="sudo"
 
+alias scratch="cat ~/scratch"
+
 export NVM_DIR="/Users/rzhao/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"

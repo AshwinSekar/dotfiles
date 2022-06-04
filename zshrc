@@ -66,3 +66,5 @@ alias please="sudo"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+set -o vi
