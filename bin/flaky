@@ -1,0 +1,10 @@
+#!/bin/bash
+
+package=$1
+test=$2
+times=$3
+cargo build --package "$package" --tests
+for _ in $(seq "$times"); do
+  RUST_LOG=info cargo test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || exit 0
+  # RUST_LOG=info cargo test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || grep -q "loop_start" flaky.txt || exit 0
+done

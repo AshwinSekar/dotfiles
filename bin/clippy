@@ -1,0 +1,2 @@
+#!/bin/bash
+~/solana/cargo nightly clippy -Zunstable-options --workspace --all-targets -- --deny=clippy::integer_arithmetic
