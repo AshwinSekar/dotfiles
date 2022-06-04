@@ -1,0 +1,27 @@
+{
+  "rust-analyzer": {
+    "checkOnSave": {
+      "allTargets": false
+    },
+    "procMacro": {
+      "enable": false
+    },
+    "inlayHints": {
+      "typeHints": {
+        "enable": true
+      },
+      "chainingHints": {
+        "enable": true
+      }
+    },
+    "diagnostics": {
+      "disabled": ["unresolved-proc-macro", "inactive-code"]
+    },
+    "signatureInfo": {
+      "detail": "full",
+      "documentation": {
+        "enable": true
+      }
+    }
+  }
+}
