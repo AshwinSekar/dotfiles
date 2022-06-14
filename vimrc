@@ -77,6 +77,13 @@ set completeopt+=noselect
 set completeopt-=preview
 
 let g:deoplete#enable_at_startup = 1
+" Don't truncate
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+let g:deoplete#max_info_width = 0
+call deoplete#custom#source('_', 'max_abbr_width', 0)
+call deoplete#custom#source('_', 'max_info_width', 0)
+call deoplete#custom#source('_', 'max_menu_width', 0)
 " Sort matches alphabetically
 call deoplete#custom#source('_', 'sorters', ['sorter_word'])
 " Disable shorter or equal length matches
@@ -129,6 +136,16 @@ nnoremap <Leader>; :Commands<CR>
 nnoremap <Leader>T :bp<CR>
 nnoremap <Leader>t :bn<CR>
 
+" editing source code
+inoremap {<CR> {<CR><BS>}<ESC>ko
+inoremap ( ()<Esc>ha
+inoremap [ []<Esc>ha
+inoremap " ""<Esc>ha
+inoremap ' ''<Esc>ha
+inoremap ` ``<Esc>ha
+inoremap < <><Esc>ha
+inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<C-G>U<right>' : ')'
+
 " Toggle pastemode with F2
 set pastetoggle=<F2>
 
@@ -161,7 +178,6 @@ let g:syntastic_always_populate_location_list = 0
 " Airline
 set laststatus=2 " statusline with one file
 set encoding=utf-8
-let g:airline_disable_statusline = 1
 let g:airline#extensions#tabline#enabled = 1 " top bar
 let g:airline#extensions#tabline#fnamemod = ':t' " just show filename
 let g:airline#extensions#syntastic#enabled = 1
@@ -239,7 +255,7 @@ let g:LanguageClient_settingsPath = expand('~/.vim/lsp-settings.json')
 let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_selectionUI = 'LOCATIONLIST'
 
-nnoremap <leader>gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap gd         :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>gr :call LanguageClient#textDocument_rename()<CR>
 nnoremap <leader>gt :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <leader>s  :call LanguageClient#textDocument_references()<CR>
