@@ -111,6 +111,7 @@ set -o vi
 # Aliases
 alias gs="git status"
 alias gaa="git add -u . && git commit --amend --no-edit && git status"
+alias grc="git add -u . && git rebase --continue"
 alias scratch="cat ~/scratch"
 alias vim="nvim"
 [ -f "/Users/ashwin/.ghcup/env" ] && source "/Users/ashwin/.ghcup/env" # ghcup-env

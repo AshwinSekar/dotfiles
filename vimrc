@@ -25,6 +25,7 @@ Plug 'Shougo/echodoc.vim'
 Plug 'preservim/tagbar'
 Plug 'flazz/vim-colorschemes'
 Plug 'milkypostman/vim-togglelist'
+Plug 'kana/vim-altercmd'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -110,8 +111,10 @@ nnoremap ; :
 nnoremap Y y$
 
 " toggle list
-nmap <script> <silent> <leader>w :call ToggleLocationList()<CR>
+nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
 nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+nnoremap <leader>w :lnext<CR>
+nnoremap <leader>W :lprev<CR>
 let g:toggle_list_copen_command = "copen"
 
 " Strip trailing whitespace
@@ -129,7 +132,6 @@ vmap <Leader>a: :Tabularize /:
 " fzf
 nnoremap <Leader>e :GFiles<CR>
 nnoremap <Leader>f :Buffers<CR>
-nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>; :Commands<CR>
 
 " buffers
@@ -141,10 +143,11 @@ inoremap {<CR> {<CR><BS>}<ESC>ko
 inoremap ( ()<Esc>ha
 inoremap [ []<Esc>ha
 inoremap " ""<Esc>ha
-inoremap ' ''<Esc>ha
 inoremap ` ``<Esc>ha
-inoremap < <><Esc>ha
 inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<C-G>U<right>' : ')'
+inoremap <expr> ] getline('.')[col('.')-1]==']' ? '<C-G>U<right>' : ']'
+inoremap <expr> > getline('.')[col('.')-1]=='>' ? '<C-G>U<right>' : '>'
+inoremap <expr> " getline('.')[col('.')-1]=='"' ? '<C-G>U<right>' : '"'
 
 " Toggle pastemode with F2
 set pastetoggle=<F2>
@@ -248,6 +251,9 @@ let g:rustfmt_autosave = 0
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['rust-analyzer'],
       \ }
+let g:LanguageClient_enableExtensions = {
+      \ 'rust': v:true,
+      \ }
 let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_loggingFile = expand('~/.vim/lsp.log')
 let g:LanguageClient_serverStderr = expand('~/.vim/lsp.err')
@@ -255,36 +261,65 @@ let g:LanguageClient_settingsPath = expand('~/.vim/lsp-settings.json')
 let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_selectionUI = 'LOCATIONLIST'
 
-nnoremap gd         :call LanguageClient#textDocument_definition()<CR>
+function! GoToDef()
+  let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
+  if dotag
+    let from = [bufnr('%'), line('.'), col('.'), 0]
+    let tagname = expand('<cword>')
+    let stack = gettagstack()
+    if stack.curidx > 1
+      let stack.items = stack.items[0:stack.curidx-2]
+    else
+      let stack.items = []
+    endif
+    let stack.items += [{'from': from, 'tagname': tagname}]
+    let stack.curidx = len(stack.items)
+    call settagstack(win_getid(), stack)
+  endif
+  call LanguageClient#textDocument_definition()
+  if dotag
+    let curidx = gettagstack().curidx + 1
+    call settagstack(win_getid(), {'curidx': curidx})
+  endif
+endfunction
+
+function! GoToReferences()
+  let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
+  if dotag
+    let from = [bufnr('%'), line('.'), col('.'), 0]
+    let tagname = expand('<cword>')
+    let stack = gettagstack()
+    if stack.curidx > 1
+      let stack.items = stack.items[0:stack.curidx-2]
+    else
+      let stack.items = []
+    endif
+    let stack.items += [{'from': from, 'tagname': tagname}]
+    let stack.curidx = len(stack.items)
+    call settagstack(win_getid(), stack)
+  endif
+  call LanguageClient#textDocument_references()
+  if dotag
+    let curidx = gettagstack().curidx + 1
+    call settagstack(win_getid(), {'curidx': curidx})
+  endif
+endfunction
+
+
+nnoremap gd         :call GoToDef()<CR>
 nnoremap <leader>gr :call LanguageClient#textDocument_rename()<CR>
 nnoremap <leader>gt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>s  :call LanguageClient#textDocument_references()<CR>
+nnoremap <leader>s  :call GoToReferences()<CR>
 nnoremap <leader>gg :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap K          :call LanguageClient#textDocument_hover()<CR>
 nnoremap <leader>gm :call LanguageClient_contextMenu()<CR>
+nnoremap <leader><Enter> :call LanguageClient#handleCodeLensAction()<CR>
 
-" ------------------------------------------------------------------------------
-" Statusline
+command SplitTerm split | b#
 
-" function! ReadOnlyFlag() abort
-"   if &readonly
-"     return ''
-"   else
-"     return ''
-"   endif
-" endfunction
-"
-" set statusline=\ %f\                 " File path
-" set statusline+=\ %m                  " Modified flag
-" set statusline+=\ %{ReadOnlyFlag()}   " Read-only flag
-"
-" set statusline+=%=                    " LHR/RHS delimeter
-"
-" set statusline+=%y                    " File type
-" set statusline+=\ \ %{&fileencoding} " File encoding
-" set statusline+=\ \ %3p%%            " Percentage through file
-" set statusline+=\                    " Make sure you have powerline glyphs
-" set statusline+=\ \ %5l\ :\ %-3c     " Line : column
-"
-" highlight StatusLine   ctermfg=239 ctermbg=246
-" highlight StatusLineNC ctermfg=238 ctermbg=244
+if has('nvim')
+  augroup TermSplit
+    autocmd!
+    autocmd TermOpen term://*cargo* SplitTerm
+  augroup end
+endif

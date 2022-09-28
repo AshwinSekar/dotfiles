@@ -22,6 +22,16 @@
       "documentation": {
         "enable": true
       }
+    },
+    "completion": {
+      "autoimport": {
+        "enable": true
+      }
+    },
+    "typing":  {
+      "autoClosingAngleBrackets": {
+        "enable": true
+      }
     }
   }
 }
