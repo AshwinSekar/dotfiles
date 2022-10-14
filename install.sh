@@ -167,10 +167,11 @@ install_rust_dev () {
     mv "$HOME/.init.vim" "$HOME/.config/nvim/init.vim"
 
     sudo apt-get install tmux
-    git clone git@github.com:tmux-plugins/tmux-resurrect.git ~/tmux-resurrect
+    git clone git@github.com:tmux-plugins/tmux-resurrect.git "$HOME/tmux-resurrect"
 
-    sudo apt-get install fzf
-    apt-cache show fzf
+    sudo ap-get remove fzf
+    git clone --depth 1 git@github.com:junegunn/fzf.git "$HOME/.fzf"
+    "$HOME"/.fzf/install
 
     curl https://sh.rustup.rs -sSf | sh
     source $HOME/.cargo/env
