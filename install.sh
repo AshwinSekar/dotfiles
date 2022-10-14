@@ -142,33 +142,40 @@ install_bin () {
     link_file "$src" "$dst"
 }
 
-install_kwm () {
-    info 'installing kwm'
-    local overwrite_all=false backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/kwm"
-    dst="$HOME/.$(basename "$src")"
-    link_file "$src" "$dst"
-}
-
-install_hammerspoon () {
-    info 'installing hammerspoon'
-    local overwrite_all=false backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/hammerspoon"
-    dst="$HOME/.$(basename "$src")"
-    link_file "$src" "$dst"
-}
-
 install_zsh () {
     info 'installing zsh'
-    local overwrite_all=false backup_all=false skip_all=false
+    sudo apt-get install zsh
+    git clone git@github.com:ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
-    src="$DOTFILES_ROOT/oh-my-zsh"
-    dst="$HOME/.$(basename "$src")"
-    link_file "$src" "$dst"
+    local overwrite_all=false backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/oh-my-zsh-custom"
     dst="$HOME/.$(basename "$src")"
     link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/zshrc"
+    dst="$HOME/.$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_rust_dev () {
+    info 'installing rust dev env'
+    sudo apt-get install neovim
+    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+	           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p "$HOME/.config/nvim"
+    mv "$HOME/.init.vim" "$HOME/.config/nvim/init.vim"
+
+    sudo apt-get install tmux
+    git clone git@github.com:tmux-plugins/tmux-resurrect.git ~/tmux-resurrect
+
+    sudo apt-get install fzf
+    apt-cache show fzf
+
+    curl https://sh.rustup.rs -sSf | sh
+    source $HOME/.cargo/env
+    sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang cmake make libprotobuf-dev protobuf-compiler
+    rustup component add rustfmt
 }
 
 install_dotfiles
@@ -177,7 +184,7 @@ install_bin
 echo ''
 install_zsh
 echo ''
-install_hammerspoon
+install_rust_dev
 
 echo ''
 echo '  All installed!'

@@ -6,7 +6,7 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 fpath=(/Users/ashwin/.zfunc $fpath)
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ashwin/.oh-my-zsh"
+export ZSH="/home/ashwin/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
