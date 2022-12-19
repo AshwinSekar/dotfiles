@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=/usr/local/opt/universal-ctags/bin:$HOME/bin:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=$HOME/go/bin:$PATH
 
 # Completions
 fpath=(/Users/ashwin/.zfunc $fpath)
@@ -74,7 +75,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,6 +115,9 @@ alias gaa="git add -u . && git commit --amend --no-edit && git status"
 alias grc="git add -u . && git rebase --continue"
 alias scratch="cat ~/scratch"
 alias vim="nvim"
+alias lsplog="nvim -p ~/.vim/lsp-settings.json ~/.vim/lsp.log ~/.vim/lsp.err"
+alias simd-lint="markdownlint-cli2 --config .github/config/.markdownlint.yaml proposals/. && ts-node .github/linter/index.ts"
+alias spl-clippy="~/solana/cargo nightly clippy -Zunstable-options --workspace --all-targets --features test-sbf -- --deny=warnings --deny=clippy::arithmetic_side_effects"
 [ -f "/Users/ashwin/.ghcup/env" ] && source "/Users/ashwin/.ghcup/env" # ghcup-env
 
 # ENV

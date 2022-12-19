@@ -19,6 +19,7 @@ Plug 'mileszs/ack.vim'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 endif
 
 Plug 'Shougo/echodoc.vim'
@@ -40,6 +41,7 @@ set nocompatible
 filetype plugin indent on
 syntax on
 syntax enable
+set re=0
 cabbrev e tabedit
 set foldmethod=syntax
 set foldlevel=20
@@ -116,6 +118,10 @@ nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 nnoremap <leader>w :lnext<CR>
 nnoremap <leader>W :lprev<CR>
 let g:toggle_list_copen_command = "copen"
+
+" markdown lint
+set errorformat+=%f:%l\ %m
+nmap <script> <silent> <leader>k :cexpr system(['markdownlint-cli2', '--config', '.github/config/.markdownlint.yaml', expand("%")])<CR>
 
 " Strip trailing whitespace
 nnoremap <Leader>z :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -250,9 +256,11 @@ let g:rustfmt_autosave = 0
 " LSP
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['rust-analyzer'],
+      \ 'haskell': ['haskell-language-server-wrapper', '--lsp'],
       \ }
 let g:LanguageClient_enableExtensions = {
       \ 'rust': v:true,
+      \ 'haskell': v:true,
       \ }
 let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_loggingFile = expand('~/.vim/lsp.log')
@@ -260,6 +268,7 @@ let g:LanguageClient_serverStderr = expand('~/.vim/lsp.err')
 let g:LanguageClient_settingsPath = expand('~/.vim/lsp-settings.json')
 let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_selectionUI = 'LOCATIONLIST'
+let g:LanguageClient_trace = "messages"
 
 function! GoToDef()
   let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')

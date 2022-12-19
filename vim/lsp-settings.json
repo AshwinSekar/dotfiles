@@ -1,7 +1,7 @@
 {
   "rust-analyzer": {
     "checkOnSave": {
-      "allTargets": false
+      "overrideCommand": ["/Users/ashwin/solana/cargo", "nightly", "check", "--message-format=json", "--all-targets", "--workspace", "-Zunstable-options"]
     },
     "procMacro": {
       "enable": false

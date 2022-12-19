@@ -605,3 +605,5 @@ TSWLatexianTemp*
 # vim-sessions
 *.sesh
 notes*
+
+*-sample-input
