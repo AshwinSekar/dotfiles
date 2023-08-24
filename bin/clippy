@@ -1,2 +1,2 @@
 #!/bin/bash
-~/solana/cargo nightly clippy -Zunstable-options --workspace --all-targets -- --deny=clippy::integer_arithmetic
+~/solana/cargo nightly clippy -Z unstable-options --keep-going --workspace --all-targets --features dummy-for-ci-check -- --deny=warnings --deny=clippy::default_trait_access --deny=clippy::integer_arithmetic --deny=clippy::manual_let_else --deny=clippy::used_underscore_binding --allow=clippy::redundant_clone

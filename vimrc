@@ -16,9 +16,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
+Plug 'jiangmiao/auto-pairs'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 Plug 'Shougo/echodoc.vim'
@@ -26,10 +28,6 @@ Plug 'preservim/tagbar'
 Plug 'flazz/vim-colorschemes'
 Plug 'milkypostman/vim-togglelist'
 Plug 'kana/vim-altercmd'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 call plug#end()
 
@@ -69,31 +67,36 @@ set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F10>
 set ttyfast
 set noshowmode
+set t_Co=256
 colorscheme gruvbox
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
 
 " ------------------------------------------------------------------------------
 " Autocomplete
-set completeopt+=noinsert
-set completeopt+=noselect
-set completeopt-=preview
+" set completeopt+=noinsert
+" set completeopt+=noselect
+" set completeopt-=preview
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 " Don't truncate
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#max_info_width = 0
-call deoplete#custom#source('_', 'max_abbr_width', 0)
-call deoplete#custom#source('_', 'max_info_width', 0)
-call deoplete#custom#source('_', 'max_menu_width', 0)
-" Sort matches alphabetically
-call deoplete#custom#source('_', 'sorters', ['sorter_word'])
-" Disable shorter or equal length matches
-call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" Ctrl-space for manual autocomplete window
-inoremap <silent> <C-Space> <C-X><C-O>
+" let g:deoplete#max_abbr_width = 0
+" let g:deoplete#max_menu_width = 0
+" let g:deoplete#max_info_width = 0
+" call deoplete#custom#source('_', 'max_abbr_width', 0)
+" call deoplete#custom#source('_', 'max_info_width', 0)
+" call deoplete#custom#source('_', 'max_menu_width', 0)
+" " Sort matches alphabetically
+" call deoplete#custom#source('_', 'sorters', ['sorter_word'])
+" " Disable shorter or equal length matches
+" call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" " Ctrl-space for manual autocomplete window
+" inoremap <silent> <C-Space> <C-X><C-O>
 
 let g:echodoc#enable_at_startup = 1
 let b:echodoc_enabled = 1
@@ -133,21 +136,11 @@ vmap <Leader>a: :Tabularize /:
 nnoremap <Leader>e :GFiles<CR>
 nnoremap <Leader>f :Buffers<CR>
 nnoremap <Leader>; :Commands<CR>
+nnoremap <Leader>l :Lines<CR>
 
 " buffers
 nnoremap <Leader>T :bp<CR>
 nnoremap <Leader>t :bn<CR>
-
-" editing source code
-inoremap {<CR> {<CR><BS>}<ESC>ko
-inoremap ( ()<Esc>ha
-inoremap [ []<Esc>ha
-inoremap " ""<Esc>ha
-inoremap ` ``<Esc>ha
-inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<C-G>U<right>' : ')'
-inoremap <expr> ] getline('.')[col('.')-1]==']' ? '<C-G>U<right>' : ']'
-inoremap <expr> > getline('.')[col('.')-1]=='>' ? '<C-G>U<right>' : '>'
-inoremap <expr> " getline('.')[col('.')-1]=='"' ? '<C-G>U<right>' : '"'
 
 " Toggle pastemode with F2
 set pastetoggle=<F2>
@@ -247,19 +240,7 @@ autocmd BufRead *.rs setlocal filetype=rust
 let g:rustfmt_autosave = 0
 
 " ------------------------------------------------------------------------------
-" LSP
-let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rust-analyzer'],
-      \ }
-let g:LanguageClient_enableExtensions = {
-      \ 'rust': v:true,
-      \ }
-let g:LanguageClient_loggingLevel = 'INFO'
-let g:LanguageClient_loggingFile = expand('~/.vim/lsp.log')
-let g:LanguageClient_serverStderr = expand('~/.vim/lsp.err')
-let g:LanguageClient_settingsPath = expand('~/.vim/lsp-settings.json')
-let g:LanguageClient_diagnosticsList = 'Location'
-let g:LanguageClient_selectionUI = 'LOCATIONLIST'
+" COC
 
 function! GoToDef()
   let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
@@ -276,7 +257,7 @@ function! GoToDef()
     let stack.curidx = len(stack.items)
     call settagstack(win_getid(), stack)
   endif
-  call LanguageClient#textDocument_definition()
+  call CocAction('jumpDefinition')
   if dotag
     let curidx = gettagstack().curidx + 1
     call settagstack(win_getid(), {'curidx': curidx})
@@ -298,22 +279,115 @@ function! GoToReferences()
     let stack.curidx = len(stack.items)
     call settagstack(win_getid(), stack)
   endif
-  call LanguageClient#textDocument_references()
+  call CocAction('jumpReferences')
   if dotag
     let curidx = gettagstack().curidx + 1
     call settagstack(win_getid(), {'curidx': curidx})
   endif
 endfunction
 
+function! GoToTypeDefinition()
+  let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
+  if dotag
+    let from = [bufnr('%'), line('.'), col('.'), 0]
+    let tagname = expand('<cword>')
+    let stack = gettagstack()
+    if stack.curidx > 1
+      let stack.items = stack.items[0:stack.curidx-2]
+    else
+      let stack.items = []
+    endif
+    let stack.items += [{'from': from, 'tagname': tagname}]
+    let stack.curidx = len(stack.items)
+    call settagstack(win_getid(), stack)
+  endif
+  call CocAction('jumpTypeDefinition')
+  if dotag
+    let curidx = gettagstack().curidx + 1
+    call settagstack(win_getid(), {'curidx': curidx})
+  endif
+endfunction
 
-nnoremap gd         :call GoToDef()<CR>
-nnoremap <leader>gr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>gt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>s  :call GoToReferences()<CR>
-nnoremap <leader>gg :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap K          :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>gm :call LanguageClient_contextMenu()<CR>
-nnoremap <leader><Enter> :call LanguageClient#handleCodeLensAction()<CR>
+function! GoToImplementation()
+  let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
+  if dotag
+    let from = [bufnr('%'), line('.'), col('.'), 0]
+    let tagname = expand('<cword>')
+    let stack = gettagstack()
+    if stack.curidx > 1
+      let stack.items = stack.items[0:stack.curidx-2]
+    else
+      let stack.items = []
+    endif
+    let stack.items += [{'from': from, 'tagname': tagname}]
+    let stack.curidx = len(stack.items)
+    call settagstack(win_getid(), stack)
+  endif
+  call CocAction('jumpImplementation')
+  if dotag
+    let curidx = gettagstack().curidx + 1
+    call settagstack(win_getid(), {'curidx': curidx})
+  endif
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+augroup cocgroup
+  autocmd!
+  " Setup formatexpr specified filetype(s)
+  autocmd FileType rust,typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nnoremap <silent> gd         :call GoToDef()<CR>
+nnoremap <silent> <leader>gr <Plug>(coc-rename)
+nnoremap <silent> <leader>gR <Plug>(coc-refactor)
+nnoremap <silent> <leader>gt :call GoToTypeDefinition()<CR>
+nnoremap <silent> <leader>s  :call GoToReferences()<CR>
+nnoremap <silent> <leader>i  :call GoToImplementation()<CR>
+nnoremap <silent> K          :call <SID>show_documentation()<CR>
+
+xmap <leader>ga <Plug>(coc-codeaction-selected)
+nmap <leader>ga <Plug>(coc-codeaction-selected)
+nmap <leader>gg <Plug>(coc-codeaction-cursor)
+nmap <leader>qf <Plug>(coc-fix-current)
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command SplitTerm split | b#
 

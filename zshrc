@@ -91,6 +91,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -114,7 +115,12 @@ alias gaa="git add -u . && git commit --amend --no-edit && git status"
 alias grc="git add -u . && git rebase --continue"
 alias scratch="cat ~/scratch"
 alias vim="nvim"
+alias fix-ssh="eval \$(ssh-agent) && ssh-add"
 [ -f "/Users/ashwin/.ghcup/env" ] && source "/Users/ashwin/.ghcup/env" # ghcup-env
 
 # ENV
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
