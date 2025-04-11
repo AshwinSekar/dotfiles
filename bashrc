@@ -48,3 +48,5 @@ export NVM_DIR="/Users/rzhao/.nvm"
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . "$HOME/.cargo/env"
+[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc
+[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc

@@ -4,16 +4,17 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export PATH=$HOME/go/bin:$PATH
 
 # Completions
-fpath=(/Users/ashwin/.zfunc $fpath)
+fpath=(/home/sol/.zfunc $fpath)
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ashwin/.oh-my-zsh"
+export ZSH="/home/sol/.oh-my-zsh"
+export ZSH_CUSTOM="/home/sol/.oh-my-zsh-custom"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="rz"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -92,6 +93,9 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
+export VISUAL="nvim"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -118,7 +122,10 @@ alias vim="nvim"
 alias lsplog="nvim -p ~/.vim/lsp-settings.json ~/.vim/lsp.log ~/.vim/lsp.err"
 alias simd-lint="markdownlint-cli2 --config .github/config/.markdownlint.yaml proposals/. && ts-node .github/linter/index.ts"
 alias spl-clippy="~/solana/cargo nightly clippy -Zunstable-options --workspace --all-targets --features test-sbf -- --deny=warnings --deny=clippy::arithmetic_side_effects"
-[ -f "/Users/ashwin/.ghcup/env" ] && source "/Users/ashwin/.ghcup/env" # ghcup-env
+alias hint="cat ~/sosh/sosh.bashrc"
+[ -f "/home/sol/.ghcup/env" ] && source "/home/sol/.ghcup/env" # ghcup-env
 
 # ENV
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
+[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc
+[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc

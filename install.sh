@@ -10,6 +10,7 @@ IGNORE=(
     "README.md"
     ".DS_Store"
     "install.sh"
+    "init.vim"
     "bin"
     "kwm"
     "hammerspoon"
@@ -171,13 +172,39 @@ install_zsh () {
     link_file "$src" "$dst"
 }
 
+install_rust_solana () {
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  sh -c "$(curl -sSfL https://release.anza.xyz/beta/install)"
+}
+
+install_neovim () {
+  mkdir -p "$HOME/.config/nvim"
+
+  sudo apt install neovim
+
+  src="$DOTFILES_ROOT/init.vim"
+  dst="$HOME/.config/nvim/init.vim"
+  link_file "$src" "$dst"
+}
+
+install_fzf () {
+  sudo apt install fzf
+  git clone --depth 1 https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin
+}
+
 install_dotfiles
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo ''
 install_bin
 echo ''
 install_zsh
 echo ''
 install_hammerspoon
-
+echo ''
+install_rust_solana
+echo ''
+install_neovim
+echo ''
+install_fzf
 echo ''
 echo '  All installed!'
