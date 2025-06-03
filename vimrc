@@ -28,6 +28,7 @@ Plug 'preservim/tagbar'
 Plug 'flazz/vim-colorschemes'
 Plug 'milkypostman/vim-togglelist'
 Plug 'kana/vim-altercmd'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 call plug#end()
 
@@ -221,7 +222,7 @@ set cino+=g0
 
 " ------------------------------------------------------------------------------
 " Tagbar
-nnoremap <silent> <Leader>h :TagbarToggle<CR>
+" nnoremap <silent> <Leader>h :TagbarToggle<CR>
 " nnoremap <silent> <Leader>h :TagbarShowTag<CR>
 let g:tagbar_width = max([25, winwidth(0) / 3])
 let g:tagbar_sort = 0
@@ -241,6 +242,8 @@ let g:rustfmt_autosave = 0
 
 " ------------------------------------------------------------------------------
 " COC
+
+nnoremap <silent> <Leader>h :CocCommand rust-analyzer.reloadWorkspace<CR>
 
 function! GoToDef()
   let dotag = &tagstack && exists('*gettagstack') && exists('*settagstack')
@@ -374,8 +377,8 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nnoremap <silent> gd         :call GoToDef()<CR>
-nnoremap <silent> <leader>gr <Plug>(coc-rename)
-nnoremap <silent> <leader>gR <Plug>(coc-refactor)
+nmap <silent> <leader>gr <Plug>(coc-rename)
+nmap <silent> <leader>gR <Plug>(coc-refactor)
 nnoremap <silent> <leader>gt :call GoToTypeDefinition()<CR>
 nnoremap <silent> <leader>s  :call GoToReferences()<CR>
 nnoremap <silent> <leader>i  :call GoToImplementation()<CR>

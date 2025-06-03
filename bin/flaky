@@ -3,10 +3,8 @@
 package=$1
 test=$2
 times=$3
-cargo build --package "$package" --tests
+/home/ashwin/solana/cargo nightly build --package "$package" --tests
 for i in $(seq "$times"); do
   echo "run $i"
-  RUST_LOG=info cargo test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || exit 0
-  # RUST_LOG=info cargo test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || grep -q "loop_start" flaky.txt || exit 0
-  # RUST_LOG=info cargo test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || ! grep -q "unwrap" flaky.txt || exit 0
+  /home/ashwin/solana/cargo nightly test --package "$package" "$test" -- --exact --nocapture --test-threads=1 > flaky.txt 2>&1 || exit 0
 done

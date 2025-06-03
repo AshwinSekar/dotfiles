@@ -1,12 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=/usr/local/opt/universal-ctags/bin:$HOME/bin:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=/home/sol/.local/share/solana/install/active_release/bin:$PATH
 
 # Completions
-fpath=(/Users/ashwin/.zfunc $fpath)
+fpath=(/Users/$USER/.zfunc $fpath)
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ashwin/.oh-my-zsh"
+export ZSH="/home/$USER/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -74,7 +75,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,6 +110,8 @@ EDITOR='nvim'
 
 set -o vi
 
+export RSBP=rsbp8zMHbGCpLoRktmsjspYv77VcjxAzH1KxPCD9BiU
+
 # Aliases
 alias gs="git status"
 alias gaa="git add -u . && git commit --amend --no-edit && git status"
@@ -116,11 +119,34 @@ alias grc="git add -u . && git rebase --continue"
 alias scratch="cat ~/scratch"
 alias vim="nvim"
 alias fix-ssh="eval \$(ssh-agent) && ssh-add"
-[ -f "/Users/ashwin/.ghcup/env" ] && source "/Users/ashwin/.ghcup/env" # ghcup-env
+alias grep="rg"
+alias rb="git pull upstream master --rebase"
+alias ff="git pull upstream master --ff-only"
+alias solana="/home/sol/solana/target/release/solana"
+alias solana-keygen="/home/sol/solana/target/release/solana-keygen"
+alias lt="/home/sol/solana/target/release/agave-ledger-tool"
+alias agave-ledger-tool="/home/sol/solana/target/release/agave-ledger-tool"
+alias agave-validator="/home/sol/solana/target/release/agave-validator"
+alias solana-test-validator="/home/sol/solana/target/release/solana-test-validator"
+alias dl-mergify="git branch | grep mergify | xargs git branch -D"
+alias clean-git="git branch --merged upstream/master | grep -v '^\*|master|main' | xargs -n 1 git branch -d"
+[ -f "/Users/$USER/.ghcup/env" ] && source "/Users/$USER/.ghcup/env" # ghcup-env
 
 # ENV
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
+. "$HOME/.cargo/env"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# pnpm
+export PNPM_HOME="/home/sol/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
