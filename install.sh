@@ -10,7 +10,6 @@ IGNORE=(
     "README.md"
     ".DS_Store"
     "install.sh"
-    "init.vim"
     "bin"
     "kwm"
     "hammerspoon"
@@ -188,12 +187,11 @@ install_neovim () {
 }
 
 install_fzf () {
-  sudo apt install fzf
   git clone --depth 1 https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin
 }
 
 install_dotfiles
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo ''
 install_bin
 echo ''

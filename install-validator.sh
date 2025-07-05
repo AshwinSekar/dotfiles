@@ -38,23 +38,23 @@ sudo apt-get install -y git htop silversearcher-ag iotop \
   cmake make libprotobuf-dev protobuf-compiler nvme-cli \
   libclang-dev
 
-# echo 'agave git setup'
-# git clone https://github.com/anza-xyz/agave.git ~/solana
-# # TODO add mods repo here
-# 
-# echo 'sosh'
-# git clone https://github.com/mvines/sosh ~/sosh
-# 
-# echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.bashrc
-# echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.zshrc
-# echo '[ -f $HOME/sosh/sosh.profile ] && source $HOME/sosh/sosh.profile' >> ~/.profile
-# 
-# cat > ~/sosh-config.sh <<EOF
-# # Start with upstream defaults
-# source ~/sosh/sosh-config-default.sh
-# 
-# # Local config overrides go here
-# EOF
+echo 'agave git setup'
+git clone https://github.com/anza-xyz/agave.git ~/solana
+# TODO add mods repo here
+
+echo 'sosh'
+git clone https://github.com/mvines/sosh ~/sosh
+
+echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.bashrc
+echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.zshrc
+echo '[ -f $HOME/sosh/sosh.profile ] && source $HOME/sosh/sosh.profile' >> ~/.profile
+
+cat > ~/sosh-config.sh <<EOF
+# Start with upstream defaults
+source ~/sosh/sosh-config-default.sh
+
+# Local config overrides go here
+EOF
 
 sudo bash -c "cat >/etc/systemd/system/sol.service <<EOF
 [Unit]
