@@ -39,8 +39,8 @@ sudo apt-get install -y git htop silversearcher-ag iotop \
   libclang-dev
 
 echo 'agave git setup'
-git clone https://github.com/anza-xyz/agave.git ~/solana
-# TODO add mods repo here
+git clone https://github.com/anza-xyz/agave.git ~/agave
+git clone git@github.com:AshwinSekar/jito-agave-mods.git ~/jito-agave-mods
 
 echo 'sosh'
 git clone https://github.com/mvines/sosh ~/sosh
