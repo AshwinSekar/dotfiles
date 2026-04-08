@@ -38,6 +38,10 @@ call plug#end()
 " General
 
 set nocompatible
+set belloff=all
+set visualbell
+set t_vb=
+set noerrorbells
 filetype plugin indent on
 syntax on
 syntax enable

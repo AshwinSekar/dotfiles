@@ -128,4 +128,3 @@ alias hint="cat ~/sosh/sosh.bashrc"
 # ENV
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
 [ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc
-[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc

@@ -160,6 +160,10 @@ install_hammerspoon () {
 
 install_zsh () {
     info 'installing zsh'
+    sudo apt-get install zsh ripgrep
+    chsh -s $(which zsh)
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
     local overwrite_all=false backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/oh-my-zsh"

@@ -43,7 +43,7 @@ git clone https://github.com/anza-xyz/agave.git ~/agave
 git clone git@github.com:AshwinSekar/jito-agave-mods.git ~/jito-agave-mods
 
 echo 'sosh'
-git clone https://github.com/mvines/sosh ~/sosh
+git clone https://github.com/AshwinSekar/sosh ~/sosh
 
 echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.bashrc
 echo '[ -f $HOME/sosh/sosh.bashrc ] && source $HOME/sosh/sosh.bashrc' >> ~/.zshrc
@@ -69,6 +69,7 @@ Restart=always
 RestartSec=1
 User=$USER
 LimitNOFILE=2000000
+LimitMEMLOCK=infinity
 LogRateLimitIntervalSec=0
 ExecStart=$HOME/sosh/bin/validator.sh
 
@@ -91,4 +92,18 @@ ExecStart=$HOME/sosh/bin/hc-service.sh
 
 [Install]
 WantedBy=multi-user.target
-EOF" && sudo systemctl daemon-reload
+EOF"
+
+sudo bash -c "echo fs.file-max = 10000000 >> /etc/sysctl.conf"
+
+sudo bash -c "cat <<EOF >> /etc/security/limits.conf
+*               soft    nofile           10000000
+*               hard    nofile           10000000
+*               soft    memlock          unlimited
+*               hard    memlock          unlimited
+EOF"
+
+sudo bash -c "echo session required pam_limits.so >> /etc/pam.d/common-session"
+
+sudo sysctl -p
+sudo systemctl daemon-reload
